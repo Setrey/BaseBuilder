@@ -10,6 +10,7 @@ public class Player : NetworkBehaviour
 
     public GameObject cameraGameObject;
     public GameObject cameraPivot;
+    private Boolean doRotateOnEdges;
 
     [Header("Rotation Settings")]
     public float rotationSpeed = 100f;
@@ -23,6 +24,7 @@ public class Player : NetworkBehaviour
     {
         controller = GetComponent<CharacterController>();
         stats = new Statistics();
+        doRotateOnEdges = false;
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,9 +32,30 @@ public class Player : NetworkBehaviour
         
     }
 
+    // Right Camera and AudioListener Atachment
+    public override void OnNetworkSpawn()
+    {
+        //base.OnNetworkSpawn();
+        if (IsOwner)
+        {
+            cameraGameObject.SetActive(true);
+
+            if(Camera.main !=null && Camera.main!=cameraGameObject.GetComponent<Camera>())
+            {
+                Camera.main.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            cameraGameObject.SetActive(false);
+
+            AudioListener otherListener = cameraGameObject.GetComponent<Camera>().GetComponent<AudioListener>();
+            if (otherListener != null) otherListener.enabled = false;
+        }
+    }
     void Movement()
     {
-        //if (!IsOwner) return;
+        if (!IsOwner) return;
 
         // Pobieranie inputu (WASD / Strzalki)
         float x = Input.GetAxis("Horizontal");
@@ -55,21 +78,24 @@ public class Player : NetworkBehaviour
 
     void Rotating()
     {
+
         Vector3 mousePos = Input.mousePosition;
         float rotationAmount = rotationSpeed * Time.deltaTime;
 
-        // Check Horizontal Edges (Rotate around Y axis)
-        if (mousePos.x <= edgeThreshold)
-            currentY += rotationAmount;
-        else if (mousePos.x >= Screen.width - edgeThreshold)
-            currentY -= rotationAmount;
+        if (doRotateOnEdges)
+        { 
+            // Check Horizontal Edges (Rotate around Y axis)
+            if (mousePos.x <= edgeThreshold)
+                currentY += rotationAmount;
+            else if (mousePos.x >= Screen.width - edgeThreshold)
+                currentY -= rotationAmount;
 
-        // Check Vertical Edges (Rotate around X axis)
-        if (mousePos.y <= edgeThreshold)
-            currentX -= rotationAmount;
-        else if (mousePos.y >= Screen.height - edgeThreshold)
-            currentX += rotationAmount;
-
+            // Check Vertical Edges (Rotate around X axis)
+            if (mousePos.y <= edgeThreshold)
+                currentX -= rotationAmount;
+            else if (mousePos.y >= Screen.height - edgeThreshold)
+                currentX += rotationAmount;
+        }
 
         // Rotation using scroll
         if (Input.GetMouseButton(2))

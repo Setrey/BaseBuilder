@@ -13,6 +13,8 @@ public class Player : NetworkBehaviour
 
     [SerializeField] private GameObject WallPrefab;
     [SerializeField] private GameObject WallBluePrintPrefab;
+    [SerializeField] private GameObject BulletPrefab;
+
 
     private GameObject currentBluePrint;
 
@@ -20,6 +22,7 @@ public class Player : NetworkBehaviour
 
     [Header("General Settings")]
     public float maxBuildingDistance = 10f;
+    [SerializeField] private Transform firePoint;
     public LayerMask groundLayer;
 
     [Header("Rotation Settings")]
@@ -114,7 +117,8 @@ public class Player : NetworkBehaviour
         }
 
         currentX = Mathf.Clamp(currentX, 0f, 85f);
-        cameraPivot.transform.localRotation = Quaternion.Euler(currentX, currentY, 0f);
+        cameraPivot.transform.localRotation = Quaternion.Euler(currentX, 0f, 0f);
+        transform.rotation = Quaternion.Euler(0f, currentY, 0f);
     }
 
 
@@ -205,11 +209,23 @@ public class Player : NetworkBehaviour
     }
     void Action()
     {
-        
+
         if (Input.GetKey(KeyCode.R))
         {
             DamageBaseServerRpc(10.0f);
         }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            ShootServerRpc(firePoint.position, firePoint.rotation);
+        }
+    }
+
+    [ServerRpc]
+    private void ShootServerRpc(Vector3 position, Quaternion rotation)
+    {
+        GameObject bullet = Instantiate(BulletPrefab, position, rotation);
+        bullet.GetComponent<NetworkObject>().Spawn();
     }
     // Update is called once per frame
     void Update()

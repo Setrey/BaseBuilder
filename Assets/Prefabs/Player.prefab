@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2740437092774290988
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8539127938141853802}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8539127938141853802
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2740437092774290988}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7447310356417880879}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6852369708975150742
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,6 +237,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5614224583564798806}
+  - {fileID: 8539127938141853802}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2422334129869352589
@@ -300,7 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1361025033
+  GlobalObjectIdHash: 3120042054
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -331,7 +363,9 @@ MonoBehaviour:
   cameraPivot: {fileID: 6852369708975150742}
   WallPrefab: {fileID: 7215133763310241688, guid: a40d6359683302a44bdd022272501022, type: 3}
   WallBluePrintPrefab: {fileID: 5314022673637730100, guid: a68ebf9997e2d3149be3d76ce70132b2, type: 3}
+  BulletPrefab: {fileID: 6993609397378785845, guid: 510ff8c75fb1d7a47a52870516834c90, type: 3}
   maxBuildingDistance: 10
+  firePoint: {fileID: 8539127938141853802}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8

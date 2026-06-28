@@ -300,7 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 3120042054
+  GlobalObjectIdHash: 1361025033
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -329,6 +329,12 @@ MonoBehaviour:
   controller: {fileID: 3393337156631872118}
   cameraGameObject: {fileID: 8334254958887467199}
   cameraPivot: {fileID: 6852369708975150742}
+  WallPrefab: {fileID: 7215133763310241688, guid: a40d6359683302a44bdd022272501022, type: 3}
+  WallBluePrintPrefab: {fileID: 5314022673637730100, guid: a68ebf9997e2d3149be3d76ce70132b2, type: 3}
+  maxBuildingDistance: 10
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
   rotationSpeed: 100
   edgeThreshold: 20
   sensitivity: 5

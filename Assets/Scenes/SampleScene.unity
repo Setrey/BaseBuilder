@@ -385,6 +385,75 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1001 &435888574
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8420693069453646432, guid: 6b0404817105a094c802681580507e8d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8420693069453646432, guid: 6b0404817105a094c802681580507e8d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8420693069453646432, guid: 6b0404817105a094c802681580507e8d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8420693069453646432, guid: 6b0404817105a094c802681580507e8d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8420693069453646432, guid: 6b0404817105a094c802681580507e8d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8420693069453646432, guid: 6b0404817105a094c802681580507e8d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8420693069453646432, guid: 6b0404817105a094c802681580507e8d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8420693069453646432, guid: 6b0404817105a094c802681580507e8d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8420693069453646432, guid: 6b0404817105a094c802681580507e8d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8420693069453646432, guid: 6b0404817105a094c802681580507e8d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9032681737158725956, guid: 6b0404817105a094c802681580507e8d, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 354708688
+      objectReference: {fileID: 0}
+    - target: {fileID: 9032681737158725956, guid: 6b0404817105a094c802681580507e8d, type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9032681737158725956, guid: 6b0404817105a094c802681580507e8d, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 2261721351
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140331303396942656, guid: 6b0404817105a094c802681580507e8d, type: 3}
+      propertyPath: m_Name
+      value: BaseCore
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6b0404817105a094c802681580507e8d, type: 3}
 --- !u!1 &541116815
 GameObject:
   m_ObjectHideFlags: 0
@@ -1041,7 +1110,7 @@ MonoBehaviour:
   m_DisconnectTimeoutMS: 30000
   ConnectionData:
     Address: 127.0.0.1
-    Port: 7777
+    Port: 7779
     WebSocketPath: /
     ServerListenAddress: 127.0.0.1
     ClientBindPort: 0
@@ -1326,6 +1395,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plane
       objectReference: {fileID: 0}
+    - target: {fileID: 2199424109791985037, guid: 64cf440ea62db714aaa7fc19ac822bf0, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1342,3 +1415,4 @@ SceneRoots:
   - {fileID: 1587135044}
   - {fileID: 1218680247}
   - {fileID: 1914190895}
+  - {fileID: 435888574}

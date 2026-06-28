@@ -41,17 +41,15 @@ public class EnemyAi : NetworkBehaviour
         Vector3 direction = (baseCoreTransform.position - transform.position).normalized;
         transform.position += direction * speed * Time.deltaTime;
     }
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (!IsServer) return;
 
         // Jeœli wróg dotknie bazy, zadaje jej obra¿enia
         BaseCore core = other.GetComponent<BaseCore>();
-        Debug.Log("JEST GUCCI?");
+
         if (core != null)
         {
-            Debug.Log("Wchodzimy po swoje");
-            // Przyk³adowe proste zadawanie obra¿eñ co klatkê (warto dopasowaæ czasowo przez Time.deltaTime)
             core.TakeDamage(damagePerSecond);
 
             // Po uderzeniu w bazê wróg znika w sieci

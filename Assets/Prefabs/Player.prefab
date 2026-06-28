@@ -213,9 +213,10 @@ GameObject:
   - component: {fileID: 3174119466505243427}
   - component: {fileID: 2594170105505225596}
   - component: {fileID: 2355506387676830770}
-  - component: {fileID: 8772246668197260270}
   - component: {fileID: 3393337156631872118}
   - component: {fileID: 4881194023541092504}
+  - component: {fileID: 8772246668197260270}
+  - component: {fileID: -97625514391122739}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -332,7 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 3120042054
+  GlobalObjectIdHash: 1361025033
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -345,33 +346,6 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
---- !u!114 &8772246668197260270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8426935362455628426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d289c8d25dcfe534d9162a5a6c6ec547, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Player
-  ShowTopMostFoldoutHeaderGroup: 1
-  controller: {fileID: 3393337156631872118}
-  cameraGameObject: {fileID: 8334254958887467199}
-  cameraPivot: {fileID: 6852369708975150742}
-  WallPrefab: {fileID: 7215133763310241688, guid: a40d6359683302a44bdd022272501022, type: 3}
-  WallBluePrintPrefab: {fileID: 5314022673637730100, guid: a68ebf9997e2d3149be3d76ce70132b2, type: 3}
-  BulletPrefab: {fileID: 6993609397378785845, guid: 510ff8c75fb1d7a47a52870516834c90, type: 3}
-  maxBuildingDistance: 10
-  firePoint: {fileID: 8539127938141853802}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  rotationSpeed: 100
-  edgeThreshold: 20
-  sensitivity: 5
 --- !u!143 &3393337156631872118
 CharacterController:
   m_ObjectHideFlags: 0
@@ -443,3 +417,48 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &8772246668197260270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8426935362455628426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d289c8d25dcfe534d9162a5a6c6ec547, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player
+  ShowTopMostFoldoutHeaderGroup: 1
+  controller: {fileID: 3393337156631872118}
+  cameraGameObject: {fileID: 8334254958887467199}
+  cameraPivot: {fileID: 6852369708975150742}
+  WallPrefab: {fileID: 7215133763310241688, guid: a40d6359683302a44bdd022272501022, type: 3}
+  WallBluePrintPrefab: {fileID: 5314022673637730100, guid: a68ebf9997e2d3149be3d76ce70132b2, type: 3}
+  BulletPrefab: {fileID: 6993609397378785845, guid: 510ff8c75fb1d7a47a52870516834c90, type: 3}
+  maxBuildingDistance: 10
+  firePoint: {fileID: 8539127938141853802}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  rotationSpeed: 100
+  edgeThreshold: 20
+  sensitivity: 5
+--- !u!114 &-97625514391122739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8426935362455628426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ce71b32691276b4aa8b77077ad2201d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerWallet
+  ShowTopMostFoldoutHeaderGroup: 1
+  gold:
+    UpdateTraits:
+      MinSecondsBetweenUpdates: 0
+      MaxSecondsBetweenUpdates: 0
+    m_InternalValue: 0

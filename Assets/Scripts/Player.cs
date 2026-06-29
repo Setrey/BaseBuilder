@@ -7,6 +7,7 @@ public class Player : NetworkBehaviour
 
     public CharacterController controller;
     public Statistics stats;
+    public PlayerWallet playerWallet;
 
     public GameObject cameraGameObject;
     public GameObject cameraPivot;
@@ -16,14 +17,17 @@ public class Player : NetworkBehaviour
     [SerializeField] private GameObject BulletPrefab;
 
 
-    private GameObject currentBluePrint;
+    private GameObject currentBlueprint;
 
     private Boolean doRotateOnEdges;
 
     [Header("General Settings")]
     public float maxBuildingDistance = 10f;
+    [SerializeField] private float gridSize = 1f;
     [SerializeField] private Transform firePoint;
+    [SerializeField] private float wallCost = 25.0f;
     public LayerMask groundLayer;
+
 
     [Header("Rotation Settings")]
     public float rotationSpeed = 100f;
@@ -38,6 +42,7 @@ public class Player : NetworkBehaviour
         controller = GetComponent<CharacterController>();
         stats = new Statistics();
         doRotateOnEdges = false;
+        playerWallet = GetComponent<PlayerWallet>();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -139,55 +144,60 @@ public class Player : NetworkBehaviour
 
     void Building()
     {
-        /*
-         * 
-         * // ToDo Blueprint
+
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log("wchodze tu Building E ");
-            SpawnBluePrint();
-            Debug.Log("wychodze stad Building E Down");
-            
-        }*/
+            if (currentBlueprint == null)
+            {
+                currentBlueprint = Instantiate(WallBluePrintPrefab);
+            }
+        }
+
+        if (Input.GetKey(KeyCode.E) && currentBlueprint != null)
+        {
+            Vector3 targetPosition = GetGridPositionFromMouse();
+            currentBlueprint.transform.position = targetPosition;
+        }
 
         if (Input.GetKeyUp(KeyCode.E))
         {
-            Debug.Log("wchodze tu Building E UP");
-            Vector3 spawnPosition = transform.position + transform.forward * 2f;
+            if (currentBlueprint != null)
+            {
+                Vector3 finalPosition = currentBlueprint.transform.position;
 
-            // ToDo Blueprint
-            //if (currentBluePrint != null) Destroy(currentBluePrint);
+                Destroy(currentBlueprint);
+                currentBlueprint = null;
 
-            RequestSpawnWallServerRpc(spawnPosition);
-
+                if (playerWallet.gold.Value >= wallCost)
+                {
+                    RequestSpawnWallServerRpc(finalPosition);
+                }
+                else
+                {
+                    Debug.Log("Za ma³o z³ota na budowê œciany!");
+                }
+            }
         }
     }
 
-    private void SpawnBluePrint()
+
+
+    // Funkcja rzucaj¹ca promieñ z myszki i wyrównuj¹ca pozycjê do siatki 1x1
+    private Vector3 GetGridPositionFromMouse()
     {
-        // Rzucamy promieñ ze œrodka ekranu (tam gdzie patrzy kamera)
-        Ray ray = cameraGameObject.GetComponent<Camera>().ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-        RaycastHit hit;
-        Debug.Log("wchodze tu");
+        Ray ray = cameraGameObject.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out hit, maxBuildingDistance, groundLayer))
+        if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            Debug.Log("wchodze tu 2");
+            float snappedX = Mathf.Round(hit.point.x / gridSize) * gridSize;
+            float snappedZ = Mathf.Round(hit.point.z / gridSize) * gridSize;
+            return new Vector3(snappedX, 0.5f, snappedZ);
 
-            WallBluePrintPrefab.transform.position = hit.point;
-
-            WallBluePrintPrefab.transform.rotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
-
-            Debug.Log("wchodze tu 3");
-            currentBluePrint = Instantiate(WallBluePrintPrefab);
         }
-        else
-        {
-            // Jeœli patrzymy w niebo, ukrywamy obiekt daleko lub wy³¹czamy widocznoœæ
-            WallBluePrintPrefab.transform.position = ray.GetPoint(maxBuildingDistance);
 
-            if (currentBluePrint != null) Destroy(currentBluePrint);
-        }
+        // Skyhit
+        Vector3 defaultPos = transform.position + transform.forward * 2f;
+        return new Vector3(Mathf.Round(defaultPos.x), 0.5f, Mathf.Round(defaultPos.z));
     }
 
     [ServerRpc]
@@ -202,10 +212,14 @@ public class Player : NetworkBehaviour
     [ServerRpc]
     private void RequestSpawnWallServerRpc(Vector3 position)
     {
-        
-        GameObject go = Instantiate(WallPrefab, position, Quaternion.identity);
+        PlayerWallet serverWallet = GetComponent<PlayerWallet>();
 
-        go.GetComponent<NetworkObject>().Spawn();
+        if (serverWallet != null && serverWallet.TrySpendGold(wallCost))
+        {
+            // Jeœli serwer pomyœlnie pobra³ z³oto, stawia sieæ œcianê
+            GameObject wall = Instantiate(WallPrefab, position, Quaternion.identity);
+            wall.GetComponent<NetworkObject>().Spawn();
+        }
     }
     void Action()
     {

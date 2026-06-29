@@ -8,7 +8,7 @@ public class EnemyAi : NetworkBehaviour
 
     private Transform baseCoreTransform;
     private float waitTillHit = 0f;
-
+    private Rigidbody rb;
     public override void OnNetworkSpawn()
     {
         // Tylko serwer przetwarza logikê poruszania AI
@@ -18,19 +18,17 @@ public class EnemyAi : NetworkBehaviour
             return;
         }
 
-        // Serwer szuka bazy na scenie
+        rb = GetComponent<Rigidbody>();
         BaseCore core = FindObjectOfType<BaseCore>();
 
-        if (core != null)
-        {
-            baseCoreTransform = core.transform;
-        }
+        if (core != null)  baseCoreTransform = core.transform;
+
     }
 
-    void Update()
+    void FixedUpdate()
     {
         // Ta logika wykonuje siê TYLKO na serwerze (Hosta)
-        if (baseCoreTransform == null) return;
+        if (baseCoreTransform == null || rb==null) return;
 
         Movement();
     }
@@ -39,7 +37,12 @@ public class EnemyAi : NetworkBehaviour
     {
         // Prosty ruch w stronê bazy
         Vector3 direction = (baseCoreTransform.position - transform.position).normalized;
-        transform.position += direction * speed * Time.deltaTime;
+        //transform.position += direction * speed * Time.deltaTime;
+
+        rb.linearVelocity = new Vector3(direction.x * speed, rb.linearVelocity.y, direction.z * speed);
+
+        if (direction != Vector3.zero)
+            rb.MoveRotation(Quaternion.LookRotation(direction));
     }
     private void OnTriggerEnter(Collider other)
     {

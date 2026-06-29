@@ -31,7 +31,7 @@ public class WaveSpawner : NetworkBehaviour
         for (int i = 0; i < enemiesPerWave; i++)
         {
             // Losujemy pozycjê spawnu wokó³ bazy (np. w promieniu 15 jednostek)
-            Vector3 randomOffset = new Vector3(Random.Range(-15f, 15f), 0, Random.Range(-15f, 15f));
+            Vector3 randomOffset = new Vector3(Random.Range(-15f, 15f), 0.5f, Random.Range(-15f, 15f));
             Vector3 spawnPos = Vector3.zero + randomOffset; // Zak³adamy, ¿e baza jest blisko œrodka (0,0,0)
 
             GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);

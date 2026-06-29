@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerWallet : NetworkBehaviour
 {
     // Synchronizowana zmienna z³ota
-    public NetworkVariable<int> gold = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+    public NetworkVariable<float> gold = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
 
     public override void OnNetworkSpawn()
     {
@@ -17,7 +17,7 @@ public class PlayerWallet : NetworkBehaviour
         gold.OnValueChanged -= OnGoldChanged;
     }
 
-    private void OnGoldChanged(int oldVal, int newVal)
+    private void OnGoldChanged(float oldVal, float newVal)
     {
         if (IsOwner)
         {
@@ -27,14 +27,14 @@ public class PlayerWallet : NetworkBehaviour
     }
 
     // Funkcja wywo³ywana przez serwer, gdy gracz podnosi surowiec
-    public void AddGold(int amount)
+    public void AddGold(float amount)
     {
         if (!IsServer) return;
         gold.Value += amount;
     }
 
     // Funkcja pomocnicza do wydawania z³ota (np. przy budowaniu)
-    public bool TrySpendGold(int amount)
+    public bool TrySpendGold(float amount)
     {
         if (!IsServer) return false;
 

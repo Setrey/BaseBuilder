@@ -27,6 +27,8 @@ public class Player : NetworkBehaviour
     [SerializeField] private Transform firePoint;
     [SerializeField] private float wallCost = 25.0f;
     public LayerMask groundLayer;
+    [SerializeField] public float baseFireRate = 1f;
+    private float fireTime = 0f;
 
 
     [Header("Rotation Settings")]
@@ -180,8 +182,6 @@ public class Player : NetworkBehaviour
         }
     }
 
-
-
     // Funkcja rzucaj¹ca promieñ z myszki i wyrównuj¹ca pozycjê do siatki 1x1
     private Vector3 GetGridPositionFromMouse()
     {
@@ -214,7 +214,13 @@ public class Player : NetworkBehaviour
     {
         PlayerWallet serverWallet = GetComponent<PlayerWallet>();
 
-        if (serverWallet != null && serverWallet.TrySpendGold(wallCost))
+        float actualWallCost = wallCost;
+
+        //Discount for Builder
+        if (GetComponent<PlayerClass>().currentProfession.Value == CharacterProfession.Builder)
+            actualWallCost = Mathf.Round(wallCost * 0.6f);
+
+        if (serverWallet != null && serverWallet.TrySpendGold(actualWallCost))
         {
             // Jeœli serwer pomyœlnie pobra³ z³oto, stawia sieæ œcianê
             GameObject wall = Instantiate(WallPrefab, position, Quaternion.identity);
@@ -229,10 +235,15 @@ public class Player : NetworkBehaviour
             DamageBaseServerRpc(10.0f);
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetButton("Fire1") && fireTime <0f)
         {
+            fireTime = Time.deltaTime + baseFireRate;
+            
             ShootServerRpc(firePoint.position, firePoint.rotation);
         }
+        if (fireTime > 0f)
+            fireTime -= Time.deltaTime;
+        
     }
 
     [ServerRpc]
@@ -240,6 +251,7 @@ public class Player : NetworkBehaviour
     {
         GameObject bullet = Instantiate(BulletPrefab, position, rotation);
         bullet.GetComponent<NetworkObject>().Spawn();
+        
     }
     // Update is called once per frame
     void Update()

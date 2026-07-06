@@ -34,7 +34,6 @@ public class PlayerClass : NetworkBehaviour
 
     private void ApplyProffesionVisuals(CharacterProfession profesion)
     {
-        Debug.Log("JEst? TUTAJ?");
         Renderer renderer = GetComponent<Renderer>();
         if (renderer == null) renderer = GetComponentInChildren<Renderer>();
         if (renderer != null)
@@ -50,6 +49,7 @@ public class PlayerClass : NetworkBehaviour
         
         if (newProfesion == CharacterProfession.Combatant)
             player.baseFireRate = 0.3f;
+       
     }
     private void setDefaultProffesionStatistics(Player player)
     {

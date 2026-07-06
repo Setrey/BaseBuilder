@@ -218,6 +218,7 @@ GameObject:
   - component: {fileID: 8772246668197260270}
   - component: {fileID: -97625514391122739}
   - component: {fileID: 6227482491166353258}
+  - component: {fileID: -3769499521225137161}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -445,6 +446,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  baseFireRate: 1
   rotationSpeed: 100
   edgeThreshold: 20
   sensitivity: 5
@@ -484,3 +486,15 @@ MonoBehaviour:
       MinSecondsBetweenUpdates: 0
       MaxSecondsBetweenUpdates: 0
     m_InternalValue: 0
+--- !u!114 &-3769499521225137161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8426935362455628426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d5d7c6f69f8255499d48b017a4b43ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHUD

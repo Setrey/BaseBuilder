@@ -235,7 +235,7 @@ public class Player : NetworkBehaviour
             DamageBaseServerRpc(10.0f);
         }
 
-        if (Input.GetButton("Fire1") && fireTime <0f)
+        if (Input.GetButton("Fire1") && fireTime <=0f)
         {
             fireTime = Time.deltaTime + baseFireRate;
             

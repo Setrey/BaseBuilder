@@ -1,8 +1,10 @@
 using UnityEngine;
 using Unity.Netcode;
+using System;
 
 public class EnemyAi : NetworkBehaviour
 {
+    [SerializeField] private float healthPoints = 1f;
     [SerializeField] private float speed = 2f;
     [SerializeField] private int damagePerSecond = 5;
 
@@ -59,5 +61,30 @@ public class EnemyAi : NetworkBehaviour
             GetComponent<NetworkObject>().Despawn();
             Destroy(gameObject);
         }
+    }
+
+    public void TakeDamage(float damageToTake)
+    {
+        Debug.Log("Odejmujemy hp");
+        if (healthPoints-damageToTake<0f)
+        {
+            Debug.Log("Enemy Dead");
+            healthPoints = 0f;
+            
+            GetComponent<NetworkObject>().Despawn();
+            Destroy(gameObject);
+        }
+        else
+        {
+            healthPoints -= damageToTake;
+            UpdateHUD();
+
+        }
+    }
+
+    private void UpdateHUD()
+    {
+        Debug.Log("health Points: " + healthPoints);
+
     }
 }
